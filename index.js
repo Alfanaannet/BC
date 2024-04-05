@@ -201,7 +201,11 @@ client.on("message", async message => {
             );
 
           // const statusMessage = await message.channel.send({ embeds: [statusEmbed] });
-          const statusMessage = await message.channel.send(`...`).then(me => {me.edit(message.author, statusEmbed);});
+          const statusMessage = await message.channel.send(`...`).then(async (me) => { 
+            const id = await me.edit(message.author, statusEmbed);
+            console.log(id)
+            
+            });
             console.log(statusMessage)
             const theStartingMessage = statusMessage.id
             const startedMessage = await message.channel.messages.fetch(statusMessage);
