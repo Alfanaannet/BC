@@ -184,7 +184,9 @@ client.on("message", async message => {
     if (!message.member.hasPermission("ADMINISTRATOR")) return;
     // try {
       const args = message.content.slice(prefix.length).trim().split(/ +/g);
-          const broadcastMessage = args.slice(1).join(" ");
+          var args = message.content.split(" ").slice(2);
+          var broadcastMessage = args.join(" ");
+          // const broadcastMessage = args.slice(1).join(" ");
             const roleMention = message.mentions.roles.first();
             if (!roleMention) return message.reply(`❗usage: ${prefix}rbc [@Role] [Message]`);
 
