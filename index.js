@@ -45,18 +45,18 @@ client.on("message", message => {
       .setDescription(`
   > **${client.user.username} Help Cmds\n> Commands : " 6 " \n> Prefix : \`${prefix}\`**\n
 
-      Broadcast Cmds :
+     ***Broadcast Cmds :***
 
-      \`${prefix}bc\` , \`${prefix}obc\`, \`${prefix}ping\`
+ **     \`${prefix}bc\` , \`${prefix}obc\`, \`${prefix}ping\` , \`${prefix}rbc\` **
       
-      Owners Cmds : 
+      *** Owners Cmds : ***
 
-      \`${prefix}changename\` , \`${prefix}changeavatar\`
+     ** \`${prefix}changename\` , \`${prefix}changeavatar\`**
       
 
-      Other :
+     *** Other : ***
 
-      \`${prefix}addme\` , \`${prefix}about\`
+      *** \`${prefix}addme\` , \`${prefix}about\` ***
 
       `
       )
@@ -161,6 +161,52 @@ client.on("message", message => {
         me.edit(message.author, embed);
       });
   }
+});
+client.on("message", message => {
+  if (message.content.startsWith(prefix + "rbc")) {
+    if (!message.member.hasPermission("ADMINISTRATOR")) return;
+      const args = message.content.slice(prefix.length).trim().split(/ +/g);
+          const broadcastMessage = args.slice(1).join(" ");
+            const roleMention = message.mentions.roles.first();
+            if (!roleMention) return message.reply(`❗usage: ${prefix}rbc [@Role] [Message]`);
+
+            const guild = message.guild;
+            const guildMembers = await guild.members.fetch();
+            if (!broadcastMessage) return message.reply(`❗usage: ${prefix}rbc [@Role] [Message]`);
+
+
+            const statusEmbed = new Discord.MessageEmbed()
+            .setColor(`GREEN`)
+            .setDescription(`حالة البرودكاست`)
+            .addFields(
+              { name: "نجح في إرسال الي ✔", value: `Starting...`, inline: false },
+              { name: "فشل في إرسال الي ❌", value: `No Fails.🌟`, inline: false }
+            );
+          const statusMessage = await message.channel.send({ embeds: [statusEmbed] });
+            const theStartingMessage = statusMessage.id
+            const startedMessage = await message.channel.messages.fetch(theStartingMessage);
+            guildMembers.forEach(async (member) => {
+              try {
+                if (member.user.bot) return;
+                if (member.roles.cache.has(roleMention.id)) {
+                  await member.send(`${broadcastMessage} \n ${member}`).catch(async (err) => {
+                    const failedEmbed = startedMessage.embeds[0];
+                    failedEmbed.fields[1].value = `${member.user.username} 🔴`;
+                    return await startedMessage.edit({ embeds: [failedEmbed] });
+                  });
+                  const successField = startedMessage.embeds[0];
+                  successField.fields[0].value = `${member.user.username} 🟢`;
+                  await startedMessage.edit({ embeds: [successField] });
+                }
+              } catch (error) {
+                console.log(error.message);
+              }
+            });
+        } catch (error) {
+            console.log(error)
+            return message.reply(`حدث خطا`)
+        }
+    }
 });
 
 client.on("message", async message => {
