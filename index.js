@@ -43,7 +43,7 @@ client.on("message", message => {
       )
       .setThumbnail(client.user.displayAvatarURL())
       .setDescription(`
-  > **${client.user.username} Help Cmds\n> Commands : " 6 " \n> Prefix : \`${prefix}\`**\n
+  > **${client.user.username} Help Cmds\n> Commands : " 8 " \n> Prefix : \`${prefix}\`**\n
 
      ***Broadcast Cmds :***
 
