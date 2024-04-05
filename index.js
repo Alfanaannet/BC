@@ -8,13 +8,16 @@ app.use('/ping', (req, res) => {
 });
 
 const Discord = require("discord.js");
-const client = new Discord.Client();
+
 
 var prefix = "!"; ///ضع هنا البريفيكس الخاص ببوتك
 ///Put Here Prefix Of Ur Bot
 var status = [`Broadcast `, `By Aw Elfanaan`];
 const botowner = ["775012312876711936"];
+const tokens = process.env.tokens.split("*");
 
+tokens.forEach(token => {
+const client = new Discord.Client();
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}`);
   console.log(`This Bot Maked By : El.Matador`);
@@ -257,4 +260,5 @@ setInterval(restart, 60 * 1000); // يسوي رن كل دقيقه يعني ما 
 
 `
 
-client.login(process.env.token);
+client.login(token);
+})
