@@ -182,6 +182,7 @@ client.on("message", message => {
 client.on("message", message => {
   if (message.content.startsWith(prefix + "rbc")) {
     if (!message.member.hasPermission("ADMINISTRATOR")) return;
+    try {
       const args = message.content.slice(prefix.length).trim().split(/ +/g);
           const broadcastMessage = args.slice(1).join(" ");
             const roleMention = message.mentions.roles.first();
