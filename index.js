@@ -12,8 +12,8 @@ const client = new Discord.Client();
 
 var prefix = "!"; ///ضع هنا البريفيكس الخاص ببوتك
 ///Put Here Prefix Of Ur Bot
-var status = [`Bot Gifts `, `Bot Gifts`];
-const botowler = ["1114155539820187718"];
+var status = [`Broadcast `, `By Aw Elfanaan`];
+const botowner = ["775012312876711936"];
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}`);
@@ -72,11 +72,7 @@ client.on("message", message => {
     let noargs = new Discord.MessageEmbed()
     .setTitle(`${client.user.username}`)
     .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
-    .setDescription(`\`Write Something To Send\`
-    
-    [Sub In Bad Channel](https://bit.ly/3wXa5lB)
-    
-    `);
+    .setDescription(`\`Write Something To Send\``);
     if (!args) return message.channel.send(message.author, noargs);
     message.guild.members.cache
       .forEach(m => {
@@ -123,11 +119,7 @@ client.on("message", message => {
     let noargs = new Discord.MessageEmbed()
      .setTitle(`${client.user.username}`)
     .setThumbnail(client.user.displayAvatarURL())
-    .setDescription(`\`Write Something To Send\`
-    
-    [Sub In Bad Channel](https://bit.ly/3wXa5lB)
-    
-    `);
+    .setDescription(`\`Write Something To Send\``);
     if (!args) return message.channel.send(message.author, noargs);
     message.guild.members.cache
       .filter(m => m.presence.status !== "offline")
@@ -207,22 +199,7 @@ client.on("message", message => {
       )
       .setThumbnail(client.user.displayAvatarURL())
       .setDescription(
-        `**Hello**
-
-      This Is A Simple Bot Of Broadcast Was Maked Dev 𝟕𝐚𝐫𝐟𝐨𝐬𝐡#3898
-
-      This Is Version 4.0
-
-      Is Beta , Soon Well Update Bot To 4.1 And 4.2
-
-      If You Want See Last Update Just
-
-      Go To Bad Channel And See Last News Of Bot
-
-      __Enjoy__...
-      
-      `
-      )
+        `**Hello** \nThis Is A Simple Bot Of Broadcast Was Maked Dev <@!775012312876711936>`)
     message.channel.send(about);
   }
 });
