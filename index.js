@@ -1,8 +1,10 @@
 const express = require("express");
 const app = express();
 
-app.listen(() => console.log("Bad Start Go Go ...."));
-
+app.listen(3000,() => console.log("Bad Start Go Go ...."));
+app.use('/', (req, res) => {
+  res.send("elfanaan");
+});
 app.use('/ping', (req, res) => {
   res.send(new Date());
 });
@@ -20,9 +22,9 @@ tokens.forEach(token => {
 const client = new Discord.Client();
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}`);
-  console.log(`This Bot Maked By : El.Matador`);
+  console.log(`This Bot Maked By : Aw elfanaan`);
   client.user.setStatus("dnd");
-  var time = Math.floor(5000);
+  var time = Math.floor(3000);
   setInterval(function() {
     var lengthesof = status.length;
     var amounter = Math.floor(Math.random() * lengthesof);
