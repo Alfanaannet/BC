@@ -201,12 +201,12 @@ client.on("message", async message => {
               { name: "نجح في إرسال الي ✔", value: `Starting...`, inline: false },
               { name: "فشل في إرسال الي ❌", value: `No Fails.🌟`, inline: false }
             );
-
           // const statusMessage = await message.channel.send({ embeds: [statusEmbed] });
             var statusMessage
             await message.channel.send(`...`).then(async (me) => { 
              statusMessage = await me.edit(message.author, statusEmbed);
             });
+            console.log(statusMessage)
             // console.log(statusMessage)
             const theStartingMessage = statusMessage.id
             const startedMessage = await message.channel.messages.fetch(statusMessage);
