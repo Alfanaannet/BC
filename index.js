@@ -192,33 +192,32 @@ client.on("message", async message => {
             const guildMembers = await guild.members.fetch();
             if (!broadcastMessage) return message.reply(`❗usage: ${prefix}rbc [@Role] [Message]`);
 
-
-            const statusEmbed = new Discord.MessageEmbed()
-            .setColor(`GREEN`)
-            .setDescription(`حالة البرودكاست`)
-            .addFields(
-              { name: "نجح في إرسال الي ✔", value: `Starting...`, inline: false },
-              { name: "فشل في إرسال الي ❌", value: `No Fails.🌟`, inline: false }
-            );
-
-          // const statusMessage = await message.channel.send({ embeds: [statusEmbed] });
-          const statusMessage = await message.channel.send(`...`).then(me => {me.edit(message.author, statusEmbed);});
-    
             const theStartingMessage = statusMessage.id
             const startedMessage = await message.channel.messages.fetch(theStartingMessage);
             guildMembers.forEach(async (member) => {
               try {
                 if (member.user.bot) return;
                 if (member.roles.cache.has(roleMention.id)) {
-                  await member.send(`${broadcastMessage} \n ${member}`).catch(async (err) => {
-                    const failedEmbed = startedMessage.embeds[0];
-                    failedEmbed.fields[1].value = `${member.user.username} 🔴`;
-                    return await startedMessage.edit({ embeds: [failedEmbed] });
-                  });
-                  const successField = startedMessage.embeds[0];
-                  successField.fields[0].value = `${member.user.username} 🟢`;
-                  await startedMessage.edit({ embeds: [successField] });
+                  await member.send(`${broadcastMessage} \n ${member}`).catch(async (err) => {});
                 }
+              let embed = new Discord.MessageEmbed()
+                .setAuthor(
+                  message.author.username,
+                  message.author.displayAvatarURL({ dynamic: true })
+                )
+                .setDescription(
+                  `📬 : Send`
+                )
+                .setTimestamp()
+                .setFooter(
+                  message.author.username,
+                  message.author.displayAvatarURL({ dynamic: true })
+                );
+              message.channel
+                .send(`...`)
+                .then(me => {
+                  me.edit(message.author, embed);
+                });
               } catch (error) {
                 console.log(error.message);
               }
