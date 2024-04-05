@@ -47,7 +47,7 @@ client.on("message", message => {
 
      ***Broadcast Cmds :***
 
- **     \`${prefix}bc\` , \`${prefix}obc\`, \`${prefix}ping\` , \`${prefix}rbc\` **
+ **     \`${prefix}bc\` , \`${prefix}obc\`, \`${prefix}ping\` , \`${prefix}rbc\` \`${prefix}come\`**
       
       *** Owners Cmds : ***
 
@@ -64,7 +64,24 @@ client.on("message", message => {
   }
 });
 
-
+client.on("message", async (message) => {
+if(message.content.startsWith(prefix + "come")) {
+if(message.author.bot) return; 
+if(!message.member.hasPermission('MANAGE_GUILD')) return message.channel.send(`:x: | <@${message.author.id}> You Must Have ``MANAGE_GUILD`` Permission!`);
+const id = message.content.slice(0).trim().split(/ +/)
+var args = message.content.split(" ").slice(2);
+var come = args.join(" ");
+let user = message.mentions.members.first() || message.guild.members.cache.get(id[1])
+if(!user) return message.reply(`**:x: I can't find this user \nUsage: ${prefix}come <user> (message)**`)
+if(!come) return message.reply(`**:x: Please type a reason \nUsage: ${prefix}come <user> (reason)**`)
+user.send(`**Please Come To <#${message.channel.id}> \nFor ${user}\n Reason : ${come}**`)
+let embed = new Discord.MessageEmbed()
+.setColor("GREEN")
+.setDescription(`**✅ | Done Sending To ${user}**`)
+.setFooter(message.author.tag, message.author.displayAvatarURL({ dynamic: true }))
+message.channel.send(embed)
+}
+})
 client.on("message", message => {
   if (message.content.startsWith(prefix + "bc")) {
     if (!message.member.hasPermission("ADMINISTRATOR")) return;
