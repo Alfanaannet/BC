@@ -182,8 +182,8 @@ client.on("message", message => {
 client.on("message", async message => {
   if (message.content.startsWith(prefix + "rbc")) {
     if (!message.member.hasPermission("ADMINISTRATOR")) return;
-    // try {
-      const args = message.content.slice(prefix.length).trim().split(/ +/g);
+    try {
+      // const args = message.content.slice(prefix.length).trim().split(/ +/g);
           var args = message.content.split(" ").slice(2);
           var broadcastMessage = args.join(" ");
           // const broadcastMessage = args.slice(1).join(" ");
@@ -207,7 +207,7 @@ client.on("message", async message => {
             await message.channel.send(`...`).then(async (me) => { 
              statusMessage = await me.edit(message.author, statusEmbed);
             });
-            console.log(statusMessage)
+            // console.log(statusMessage)
             const theStartingMessage = statusMessage.id
             const startedMessage = await message.channel.messages.fetch(statusMessage);
             guildMembers.forEach(async (member) => {
@@ -221,7 +221,7 @@ client.on("message", async message => {
                   });
                   const successField = startedMessage.embeds[0];
                   successField.fields[0].value = `${member.user.username} 🟢`;
-                  await startedMessage.edit({ embeds: [successField] });
+                  await startedMessage.edit(message.author,successField);
                 }
             // const theStartingMessage = statusMessage.id
             // const startedMessage = await message.channel.messages.fetch(theStartingMessage);
@@ -253,10 +253,10 @@ client.on("message", async message => {
                 console.log(error.message);
               }
             });
-        // } catch (error) {
-        //     console.log(error)
-        //     return message.reply(`حدث خطا`)
-        // }
+        } catch (error) {
+            console.log(error)
+            return message.reply(`حدث خطا`)
+        }
     }
 });
 
