@@ -179,7 +179,7 @@ client.on("message", message => {
       });
   }
 });
-client.on("message", message => {
+client.on("message", async message => {
   if (message.content.startsWith(prefix + "rbc")) {
     if (!message.member.hasPermission("ADMINISTRATOR")) return;
     try {
